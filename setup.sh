@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # --- Arch Linux Post-Install Automation Script ---
-# Base: Arch minimal (archinstall)
-# Desktop: Niri + Dank Material Shell (DMS)
+# Description: Automated setup for Niri + DMS on Arch Linux
+# Author: Aris
 
 set -e
 
@@ -16,7 +16,7 @@ xdg-user-dirs-update
 # 2. Install Paru (AUR Helper)
 echo "Step 2: Installing Paru..."
 sudo pacman -S --needed --noconfirm base-devel git
-if [ ! -d "paru" ]; then
+if ! command -v paru &> /dev/null; then
     git clone https://aur.archlinux.org/paru.git
     cd paru
     makepkg -si --noconfirm
@@ -57,15 +57,18 @@ sudo systemctl enable greetd
 echo "Step 5: Installing fonts..."
 paru -S --noconfirm noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-font-awesome
 
-# 6. User Personalization
-echo "Step 6: Setting full name and Shell..."
-# Replace 'Aris' with your desired full name if needed
-sudo chfn -f "Aris" $(whoami)
+# 6. User Personalization & Shell
+echo "Step 6: User Personalization..."
 
-# Install Fish Shell
+# Input full name from terminal
+read -p "Enter your full name for this system: " full_name
+sudo chfn -f "$full_name" $(whoami)
+
+# Install and set Fish Shell
+echo "Installing Fish Shell..."
 paru -S --noconfirm fish
 echo "Switching default shell to Fish..."
-chsh -s /usr/bin/fish
+sudo chsh -s /usr/bin/fish $(whoami)
 
 # 7. Applications
 echo "Step 7: Installing productivity apps..."
@@ -74,7 +77,11 @@ paru -S --noconfirm krita gimp inkscape google-chrome visual-studio-code-bin
 # 8. Wallpapers
 echo "Step 8: Cloning wallpapers..."
 if [ ! -d "$HOME/Pictures/Wallpapers" ]; then
+    mkdir -p "$HOME/Pictures"
     git clone https://github.com/mylinuxforwork/wallpaper "$HOME/Pictures/Wallpapers"
 fi
 
-echo "--- Setup Complete! Please reboot your system. ---"
+echo "----------------------------------------------------"
+echo "Setup Complete! System is ready."
+echo "Please reboot to apply all changes and enter DMS."
+echo "----------------------------------------------------"
