@@ -5,7 +5,16 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // === Application Launchers ===
-    Mod+E hotkey-overlay-title="Open File Managere" { spawn "nautilus"; }
+    // Mulai Record (Layar + Suara Speaker)
+    Mod+Alt+R hotkey-overlay-title="Start Screenrecord" { 
+        spawn "sh" "-c" "notify-send 'Screen Recorder' 'Recording System Audio' -i media-record && mkdir -p ~/Videos/ScreenRecord && wf-recorder --audio=alsa_output.pci-0000_06_00.6.analog-stereo.monitor -f ~/Videos/ScreenRecord/recording_$(date +%Y-%m-%d_%H-%M-%S).mp4"
+    }
+    
+    // Stop Record (Tetap sama)
+    Mod+Alt+S hotkey-overlay-title="Stop Screenrecord" { 
+        spawn "sh" "-c" "killall -s SIGINT wf-recorder && notify-send 'Screen Recorder' 'Recording Saved' -i task-complete"
+    }
+    Mod+E hotkey-overlay-title="Open File Manager" { spawn "nautilus"; }
     Mod+T hotkey-overlay-title="Open Terminal" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Application Launcher" {
         spawn "dms" "ipc" "call" "spotlight" "toggle";

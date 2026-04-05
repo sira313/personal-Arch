@@ -275,6 +275,8 @@ window-rule {
     opacity 0.7
 }
 
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+
 // Include dms files
 include "dms/colors.kdl"
 include "dms/layout.kdl"
