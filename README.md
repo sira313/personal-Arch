@@ -20,7 +20,7 @@ makepkg -si
 
 ## Install DMS and others
 ```
-paru -S nano brightnessctl quickshell cava cliphist wl-clipboard dgop dsearch matugen niri qt6-multimedia polkit-gnome dms-shell-bin greetd-dms-greeter-git kitty totem loupe wf-recorder gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav ffmpegthumbnailer samba
+paru -S nano brightnessctl quickshell cava cliphist wl-clipboard dgop dsearch matugen niri qt6-multimedia polkit-gnome dms-shell-bin greetd-dms-greeter-git kitty totem loupe wf-recorder gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav ffmpegthumbnailer samba freerdp podman-compose
 ```
 
 ### Configure DMS
