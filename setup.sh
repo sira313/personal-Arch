@@ -90,55 +90,39 @@ else
     echo "Melewati instalasi wallpaper."
 fi
 
-# --- Step 9: Sync Dotfiles (Symlinking) ---
-echo "Step 9: Menghubungkan file konfigurasi (Symlink)..."
+# --- Step 9: Sync Dotfiles (Automated Sub-folder Detection) ---
+echo "Step 9: Menempatkan file konfigurasi secara otomatis..."
 
-# Ambil path folder repository saat ini secara absolut
-REPO_DIR=$(pwd)
+# Cukup daftarkan folder utama yang ingin disinkronkan
+TOP_LEVEL_DIRS=(".config" ".local" "Documents")
 
-deploy_file() {
-    local src="$REPO_DIR/$1"
-    local dest_dir="$2"
-    local filename=$(basename "$1")
-    local target="$dest_dir/$filename"
-    
-    # Buat folder tujuan jika belum ada
-    mkdir -p "$dest_dir"
-    
-    # Cek jika file sumber ada di repo
-    if [ -f "$src" ]; then
-        # Jika sudah ada file/link di target, hapus agar bisa ditimpa link baru
-        # Atau gunakan -b pada ln jika ingin backup otomatis dari sistem
-        if [ -f "$target" ] && [ ! -L "$target" ]; then
-            echo "[BACKUP] Memindahkan file lama ke $target.bak"
-            mv "$target" "$target.bak"
-        fi
-
-        # Buat symlink (-s: symbolic, -f: force/overwrite)
-        ln -sf "$src" "$target"
-        echo "[LINK] $src -> $target"
-    else
-        echo "[SKIP] File $src tidak ditemukan di repository"
+for dir in "${TOP_LEVEL_DIRS[@]}"; do
+    if [ -d "$dir" ]; then
+        echo "Memproses folder: $dir"
+        
+        # Cari semua sub-folder yang berisi file (depth-first)
+        # find akan mencari semua direktori di dalam $dir yang mengandung file
+        find "$dir" -type d | while read -r subdir; do
+            
+            # Tentukan target path di $HOME
+            target_path="$HOME/$subdir"
+            
+            # Buat folder jika belum ada (skip jika sudah ada)
+            mkdir -p "$target_path"
+            
+            # Copy semua file (non-direktori) yang ada di folder tersebut
+            # -f (force) untuk replace, 2>/dev/null untuk sembunyikan error folder kosong
+            cp -f "$subdir"/* "$target_path/" 2>/dev/null
+            
+        done
+        echo "[OK] Struktur $dir berhasil disinkronkan."
     fi
-}
+done
 
-# Eksekusi penempatan (Gunakan path relatif terhadap root repo)
-deploy_file ".config/fastfetch/config.jsonrc" "$HOME/.config/fastfetch"
-deploy_file ".config/fish/config.fish" "$HOME/.config/fish"
-deploy_file ".config/fish/functions/share-off.fish" "$HOME/.config/fish/functions"
-deploy_file ".config/fish/functions/share-on.fish" "$HOME/.config/fish/functions"
-deploy_file ".config/fish/functions/start-win.fish" "$HOME/.config/fish/functions"
-deploy_file ".config/kitty/kitty.conf" "$HOME/.config/kitty"
-deploy_file ".config/niri/config.kdl" "$HOME/.config/niri"
-deploy_file ".config/niri/dms/binds.kdl" "$HOME/.config/niri/dms"
-deploy_file "Documents/windows11/podman-compose.yml" "$HOME/Documents/windows11"
-deploy_file ".local/share/applications/win-start.desktop" "$HOME/.local/share/applications"
-deploy_file ".local/share/applications/win-stop.desktop" "$HOME/.local/share/applications"
+# Pastikan izin eksekusi untuk fungsi fish
+chmod +x "$HOME/.config/fish/functions"/*.fish 2>/dev/null
 
-# Berikan izin eksekusi pada file asli di dalam repo agar link-nya juga executable
-chmod +x .config/fish/functions/*.fish 2>/dev/null
-
-echo "Step 9 selesai! Sekarang perubahan di repo akan otomatis aktif."
+echo "Step 9 selesai!"
 echo "----------------------------------------------------"
 echo "Setup Complete! System is ready."
 echo "Please reboot to apply all changes and enter DMS."
