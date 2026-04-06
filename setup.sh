@@ -25,6 +25,11 @@ if ! command -v paru &> /dev/null; then
     rm -rf "$_tempdir"
 fi
 
+if ! command -v paru &> /dev/null; then
+    echo "Error: Paru installation failed. Exiting..."
+    exit 1
+fi
+
 # 3. Install DMS and Core Components
 echo "Step 3: Installing DMS, Niri, and multimedia tools..."
 paru -S --noconfirm \
