@@ -90,3 +90,56 @@ git clone https://github.com/mylinuxforwork/wallpaper Pictures/Wallpapers
 
 ### Config
 Copy All dir & file exactly the same path
+
+### Tips 
+#### Samba
+```
+nano /etc/samba/smb.conf
+```
+Put this config
+```
+[global]
+   workgroup = WORKGROUP
+   server string = Arch Samba
+   security = user
+   map to guest = Bad User
+
+[Public]
+   path = /home/YourUsername/Public
+   writable = yes
+   guest ok = yes
+   guest only = yes
+   force user = YourUsername
+```
+Add user
+```
+sudo smbpasswd -a YourUsername
+```
+Activate user
+```
+sudo smbpasswd -e YourUsername
+```
+Allow port
+```
+sudo ufw allow 137,138/udp
+sudo ufw allow 139,445/tcp
+sudo ufw reload
+```
+Share Public dir
+```
+share-on
+```
+Stop share Public dir
+```
+share-off
+```
+
+#### Windows
+Copy windows11.iso to `~/Documents/iso`
+```
+cd Documents/windows11/ && podman-compose up -d && podman-compose logs -f
+```
+Wait installation finish, debloat it!!!
+
+#### Shortcut
+Press `meta` + `space` search `Start Win` to start windows and freerdp. Use `Stop Win` to stop the service.
