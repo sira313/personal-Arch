@@ -2,14 +2,24 @@
 # Arch + DMS
 After install minimal arch with archinstall
 
-## Setup home dir
+## Auto Install
+```
+pacman -S git && git clone https://github.com/sira313/personal-Arch && cd personal-Arch
+```
+```
+chmod +x setup.sh && ./install.sh
+```
+
+## Manual Install
+
+### Setup home dir
 ```
 sudo pacman -S xdg-user-dirs && xdg-user-dirs-update
 ```
 
-## Install Paru
+### Install Paru
 ```
-sudo pacman -S --needed base-devel git
+sudo pacman -S --needed base-devel
 ```
 ```
 git clone https://aur.archlinux.org/paru.git && cd paru
@@ -18,17 +28,17 @@ git clone https://aur.archlinux.org/paru.git && cd paru
 makepkg -si
 ```
 
-## Install DMS and others
+### Install DMS and others
 ```
 paru -S nano brightnessctl quickshell cava cliphist wl-clipboard dgop dsearch matugen niri qt6-multimedia polkit-gnome dms-shell-bin greetd-dms-greeter-git kitty totem loupe wf-recorder gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav ffmpegthumbnailer samba freerdp podman-compose
 ```
 
-### Configure DMS
+#### Configure DMS
 ```
 dms setup
 ```
 
-### Config greetd
+#### Config greetd
 ```
 sudo nano /etc/greetd/config.toml
 ```
@@ -43,7 +53,7 @@ user = "greeter"
 command = "dms-greeter --command niri"
 ```
 
-### Activate Greeter
+#### Activate Greeter
 ```
 sudo dms greeter enable
 ```
@@ -58,22 +68,25 @@ reboot
 ```
 Setup your DMS with `Meta + ,`
 
-## Install font
+### Install font
 ```
 paru -S noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-font-awesome
 ```
 
-## Add your full name
+### Add your full name
 ```
 sudo chfn -f "My Full Name" username
 ```
 
-## Apps
+### Apps
 ```
 paru -S krita gimp inkscape google-chrome visual-studio-code-bin
 ```
 
-## Free wallpapers
+### Free wallpapers
 ```
 git clone https://github.com/mylinuxforwork/wallpaper Pictures/Wallpapers
 ```
+
+### Config
+Copy All dir & file exactly the same path
