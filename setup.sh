@@ -76,53 +76,52 @@ paru -S --noconfirm krita gimp inkscape google-chrome visual-studio-code-bin
 
 # 8. Wallpapers
 echo "Step 8: Wallpapers..."
-read -p "Apakah Anda ingin melakukan git clone untuk wallpaper dari ML4W? (y/N): " confirm_wallpaper
+read -p "Do you want to clone wallpapers from ML4W? (y/N): " confirm_wallpaper
 
 if [[ "$confirm_wallpaper" =~ ^[Yy]$ ]]; then
     if [ ! -d "$HOME/Pictures/Wallpapers" ]; then
-        echo "Sedang mengunduh wallpaper..."
+        echo "Downloading wallpapers..."
         mkdir -p "$HOME/Pictures"
         git clone https://github.com/mylinuxforwork/wallpaper "$HOME/Pictures/Wallpapers"
     else
-        echo "Direktori wallpaper sudah ada, melewati langkah ini."
+        echo "Wallpaper directory already exists, skipping this step."
     fi
 else
-    echo "Melewati instalasi wallpaper."
+    echo "Skipping wallpaper installation."
 fi
 
 # --- Step 9: Sync Dotfiles (Automated Sub-folder Detection) ---
-echo "Step 9: Menempatkan file konfigurasi secara otomatis..."
+echo "Step 9: Synchronizing configuration files..."
 
-# Cukup daftarkan folder utama yang ingin disinkronkan
+# List of top-level directories to be scanned from the repo
 TOP_LEVEL_DIRS=(".config" ".local" "Documents")
 
 for dir in "${TOP_LEVEL_DIRS[@]}"; do
     if [ -d "$dir" ]; then
-        echo "Memproses folder: $dir"
+        echo "Processing directory: $dir"
         
-        # Cari semua sub-folder yang berisi file (depth-first)
-        # find akan mencari semua direktori di dalam $dir yang mengandung file
+        # Find all subdirectories that contain files
         find "$dir" -type d | while read -r subdir; do
             
-            # Tentukan target path di $HOME
+            # Map repo subdirectory to the user's HOME path
             target_path="$HOME/$subdir"
-            
-            # Buat folder jika belum ada (skip jika sudah ada)
+
+            # Create target folder if it doesn't exist
             mkdir -p "$target_path"
             
-            # Copy semua file (non-direktori) yang ada di folder tersebut
-            # -f (force) untuk replace, 2>/dev/null untuk sembunyikan error folder kosong
+            # Copy files and replace existing ones (-f)
+            # Redirecting errors to null in case a directory is empty
             cp -f "$subdir"/* "$target_path/" 2>/dev/null
             
         done
-        echo "[OK] Struktur $dir berhasil disinkronkan."
+        echo "[OK] Structure for $dir successfully synced."
     fi
 done
 
-# Pastikan izin eksekusi untuk fungsi fish
+# Ensure fish functions are executable
 chmod +x "$HOME/.config/fish/functions"/*.fish 2>/dev/null
 
-echo "Step 9 selesai!"
+echo "Step 9 complete!"
 echo "----------------------------------------------------"
 echo "Setup Complete! System is ready."
 echo "Please reboot to apply all changes and enter DMS."
