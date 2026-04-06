@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Start Windows 11
-Comment=Menjalankan Windows 11 via Podman dan RDP
-Exec=kitty --hold -e fish -c "start-win"
-Icon=windows
-Terminal=false
-Categories=Utility;
