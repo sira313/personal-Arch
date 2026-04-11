@@ -2,16 +2,6 @@
 # Arch + DMS
 After install minimal arch with archinstall
 
-## Auto Install
-```
-pacman -S git && git clone https://github.com/sira313/personal-Arch && cd personal-Arch
-```
-```
-chmod +x setup.sh && ./install.sh
-```
-
-## Manual Install
-
 ### Setup home dir
 ```
 sudo pacman -S xdg-user-dirs && xdg-user-dirs-update
