@@ -33,7 +33,7 @@ paru -S fish \
   niri \
   qt6-multimedia \
   polkit-gnome \
-  dms-shell-bin \
+  dms-shell-niri \
   greetd-dms-greeter-git \
   kitty \
   totem \
