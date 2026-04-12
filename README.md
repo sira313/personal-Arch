@@ -59,7 +59,7 @@ dms setup
 ```
 Then add this line to `~/.config/niri/config.kdl`
 ```
-spawn-at-startup "sh" "-c" "dms run"
+spawn-at-startup "sh" "-c" "dms run &"
 ```
 
 #### Config greetd
