@@ -27,13 +27,6 @@ Menggunakan `ryzenadj` untuk menulis ulang batas daya (*power limits*) langsung 
 * **Install:** `paru -S ryzenadj-git`
 * **Command:** `sudo ryzenadj --stapm-limit=25000 --fast-limit=25000 --slow-limit=25000`
 
-#### **Langkah C: Pembersihan Konflik**
-Menghapus service yang tidak kompatibel agar tidak memperlambat proses *booting*.
-```fish
-sudo systemctl disable --now throttled
-sudo pacman -Rs throttled
-```
-
 ---
 
 ### 4. Solusi Permanen & Alur Kerja
