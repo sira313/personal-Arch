@@ -167,3 +167,14 @@ Wait installation finish, debloat it!!!
 
 #### Shortcut
 Press `meta` + `space` search `Start Win` to start windows and freerdp. Use `Stop Win` to stop the service.
+
+## Icons Installation
+Follow [the step](https://github.com/sira313/vara-icon-theme/) first.
+
+Replace `generate.js` with [the new one](https://github.com/sira313/dotfiles/blob/main/Vara/generate.js)
+
+Create [~/.local/bin/watch-color.sh](https://github.com/sira313/dotfiles/blob/main/.local/bin/watch.color.sh)
+```
+chmod +x ~/.local/bin/watch-color.sh
+```
+Enjoy!!!
