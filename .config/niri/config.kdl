@@ -228,7 +228,7 @@ window-rule {
     match app-id=r#"^gnome-calculator$"#
     match app-id=r#"^galculator$"#
     match app-id=r#"^blueman-manager$"#
-    match app-id=r#"^org\.gnome\.Nautilus$"#
+    // match app-id=r#"^org\.gnome\.Nautilus$"#
     match app-id=r#"^xdg-desktop-portal$"#
     open-floating true
 }
@@ -245,11 +245,7 @@ window-rule {
     match app-id="kitty"
     draw-border-with-background false
 }
-window-rule {
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    match app-id="zoom"
-    open-floating true
-}
+
 // Open dms windows as floating by default
 window-rule {
     match app-id=r#"org.quickshell$"#
@@ -278,6 +274,8 @@ window-rule {
 
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "sh" "-c" "dms run &"
+// replace your own
+spawn-at-startup "/home/aris/.local/bin/watch-colors.sh"
 
 
 // Include dms files
