@@ -167,12 +167,3 @@ Wait installation finish, debloat it!!!
 
 #### Shortcut
 Press `meta` + `space` search `Start Win` to start windows and freerdp. Use `Stop Win` to stop the service.
-
-## Icons Installation
-Follow [the step](https://github.com/sira313/vara-icon-theme/) first.
-
-Replace `generate.sh` with [the new one](https://github.com/sira313/dotfiles/blob/main/Vara/generate.sh)
-
-Don't forget [this line](https://github.com/sira313/dotfiles/blob/b0136946b73e8d811bf60ecb02a78acac94632f8/.config/niri/config.kdl#L278)
-
-Enjoy!!!
