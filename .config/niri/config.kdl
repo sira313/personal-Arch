@@ -275,8 +275,7 @@ window-rule {
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "sh" "-c" "dms run &"
 // replace your own
-spawn-at-startup "/home/aris/.local/bin/watch-colors.sh"
-
+spawn-at-startup "bash" "-c" "/home/aris/Downloads/Vara/generate.sh >/tmp/vara_icon.log 2>&1"
 
 // Include dms files
 include "dms/colors.kdl"
