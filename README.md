@@ -121,6 +121,11 @@ git clone https://github.com/mylinuxforwork/wallpaper Pictures/Wallpapers
 Copy All dir & file exactly the same path
 
 ## Tips 
+###
+Open xorg based apps we must install this
+```
+sudo pacman -S xwayland-satellite
+```
 ### Samba
 ```
 nano /etc/samba/smb.conf
